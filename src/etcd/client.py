@@ -115,7 +115,7 @@ class Client(object):
                 kw['ca_certs'] = ca_cert
                 kw['cert_reqs'] = ssl.CERT_REQUIRED
 
-        self.http = urllib3.PoolManager(num_pools=10, **kw)
+        self.http = urllib3.PoolManager(num_pools=10, retries=False, **kw)
 
         if self._allow_reconnect:
             # we need the set of servers in the cluster in order to try
