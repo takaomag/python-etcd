@@ -119,6 +119,8 @@ class EtcdError(object):
         104: KeyError,
         105: KeyError,
         106: KeyError,
+        107: KeyError,
+        108: KeyError,
         200: ValueError,
         201: ValueError,
         202: ValueError,
