@@ -577,7 +577,9 @@ class Client(object):
                     raise etcd.EtcdException(
                         'HTTP method {} not supported'.format(method))
 
-            except urllib3.exceptions.MaxRetryError:
+            except urllib3.exceptions.MaxRetryError as e:
+                if params.get('wait', False) is True and method == self._MGET and isinstance(e.__context__, urllib3.exceptions.ReadTimeoutError) is True:
+                    raise e.__context__
                 self._base_uri = self._next_server()
                 some_request_failed = True
 
