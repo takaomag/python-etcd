@@ -578,8 +578,7 @@ class Client(object):
                         'HTTP method {} not supported'.format(method))
 
             except urllib3.exceptions.MaxRetryError as e:
-                logger.error('params: {}, method: {}, reason: {}, {}'.format(params, method, e.reason.__class__, e.reason))
-                if params.get('wait') == 'true' and method == self._MGET and isinstance(e.reason, urllib3.exceptions.ReadTimeoutError) is True:
+                if method == self._MGET and params.get('wait') == 'true' and isinstance(e.reason, urllib3.exceptions.ReadTimeoutError) is True:
                     raise e.reason
                 self._base_uri = self._next_server()
                 some_request_failed = True
